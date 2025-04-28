@@ -1,67 +1,137 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Connexion à MariaDB via JSP</title>
+<title>Les tableaux</title>
 </head>
-<body>
-    <h1>Exemple de connexion à MariaDB avec JSP</h1>
-    <% 
-    String url = "jdbc:mariadb://localhost:3306/films";
-    String user = "cnam";
-    String password = "cnam";
+<body bgcolor=white>
+<h1>Exercices sur les tableaux</h1>
 
-        // Charger le pilote JDBC (pilote disponible dans WEB-INF/lib)
-        Class.forName("org.mariadb.jdbc.Driver");
+<form action="#" method="post">
+    <p>Saisir au minimum 3 chiffres séparés par des espaces (exemple : 6 78 15) :
+    <input type="text" name="chaine">
+    <p><input type="submit" value="Afficher">
+</form>
 
-        // Établir la connexion
-        Connection conn = DriverManager.getConnection(url, user, password);
-        // Exemple de requête SQL
-        String sql = "SELECT idFilm, titre, annee FROM Film WHERE annee >= 2000";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        ResultSet rs = pstmt.executeQuery();
+<%
+    String chaine = request.getParameter("chaine");
 
-        // Afficher les résultats (à adapter selon vos besoins)
-        while (rs.next()) {
-            String colonne1 = rs.getString("idFilm");
-            String colonne2 = rs.getString("titre");
-            String colonne3 = rs.getString("annee");
-            // Faites ce que vous voulez avec les données...
-            //Exemple d'affichage de 2 colonnes
-            out.println("id : " + colonne1 + ", titre : " + colonne2 + ", année : " + colonne3 + "</br>");
+    if (chaine != null && !chaine.trim().isEmpty()) {
+        String[] tableauDeChiffres = chaine.trim().split("\\s+");
+
+        int[] chiffres = new int[tableauDeChiffres.length];
+        for (int i = 0; i < tableauDeChiffres.length; i++) {
+            try {
+                chiffres[i] = Integer.parseInt(tableauDeChiffres[i]);
+            } catch (NumberFormatException e) {
+                chiffres[i] = 0; // En cas d'erreur de saisie, mettre 0
+            }
         }
+%>
 
-        // Fermer les ressources 
-        rs.close();
-        pstmt.close();
-        conn.close();
-    %>
+    <p>Le tableau contient <%= chiffres.length %> valeur(s).</p>
 
-<h2>Exercice 1 : Les films entre 2000 et 2015</h2>
-<p>Extraire les films dont l'année est supérieur à l'année 2000 et inférieur à 2015.</p>
+    <p>
+    <% for (int i = 0; i < chiffres.length; i++) { %>
+        Chiffre <%= (i + 1) %> : <%= chiffres[i] %><br>
+    <% } %>
+    </p>
 
-<h2>Exercice 2 : Année de recherche</h2>
-<p>Créer un champ de saisie permettant à l'utilisateur de choisir l'année de sa recherche.</p>
+<hr>
 
-<h2>Exercice 3 : Modification du titre du film</h2>
-<p>Créer un fichier permettant de modifier le titre d'un film sur la base de son ID (ID choisi par l'utilisateur)</p>
+<h2>Exercice 1 : Le carré de la première valeur</h2>
+<%
+    if (chiffres.length > 0) {
+        int carre = chiffres[0] * chiffres[0];
+%>
+        <p>Le carré de <%= chiffres[0] %> est : <%= carre %></p>
+<%
+    }
+%>
+
+<hr>
+
+<h2>Exercice 2 : La somme des 2 premières valeurs</h2>
+<%
+    if (chiffres.length >= 2) {
+        int somme2 = chiffres[0] + chiffres[1];
+%>
+        <p>La somme de <%= chiffres[0] %> et <%= chiffres[1] %> est : <%= somme2 %></p>
+<%
+    }
+%>
+
+<hr>
+
+<h2>Exercice 3 : La somme de toutes les valeurs</h2>
+<%
+    int sommeTotale = 0;
+    for (int valeur : chiffres) {
+        sommeTotale += valeur;
+    }
+%>
+<p>La somme de toutes les valeurs est : <%= sommeTotale %></p>
+
+<hr>
 
 <h2>Exercice 4 : La valeur maximum</h2>
-<p>Créer un formulaire pour saisir un nouveau film dans la base de données</p>
+<%
+    int max = chiffres[0];
+    for (int valeur : chiffres) {
+        if (valeur > max) {
+            max = valeur;
+        }
+    }
+%>
+<p>La valeur maximale est : <%= max %></p>
+
 <hr>
-<h3>Projet Bibliothèque</h3>
-<p>Votre projet consiste à concevoir et développer une application de gestion de bibliothèque moderne qui simplifie le processus de prêt et de retour de livres. Les fonctionnalités attendues dans le cadre de ce projet sont les suivantes :
-<ul>
-<li>L’enregistrement et la suppression de livres.</li>
-<li>La recherche de livres disponibles.</li>
-<li>L'emprunt possible d'un livre par un utilisateur.</li>
-<li>La gestion des utilisateurs.</li>
-<li>La gestion des stocks.</li>
-</ul>
-Votre travail est de créer votre code afin de répondre aux besoins définis ci-dessus. L'application exploitera le language JSP (JAVA) pour interagir avec la base de données MariaDB.
-L’application pourra être enrichie avec des fonctionnalités supplémentaires telles que des recommandations de livres, des notifications pour les retours en retard, ou encore des rapports statistiques sur l'utilisation des livres pour améliorer l'expérience utilisateur et la gestion de la bibliothèque.
-</p>
+
+<h2>Exercice 5 : La valeur minimale</h2>
+<%
+    int min = chiffres[0];
+    for (int valeur : chiffres) {
+        if (valeur < min) {
+            min = valeur;
+        }
+    }
+%>
+<p>La valeur minimale est : <%= min %></p>
+
+<hr>
+
+<h2>Exercice 6 : La valeur la plus proche de 0</h2>
+<%
+    int procheZero = chiffres[0];
+    for (int valeur : chiffres) {
+        if (Math.abs(valeur) < Math.abs(procheZero)) {
+            procheZero = valeur;
+        }
+    }
+%>
+<p>La valeur la plus proche de 0 est : <%= procheZero %></p>
+
+<hr>
+
+<h2>Exercice 7 : La valeur la plus proche de 0 (version 2)</h2>
+<%
+    int procheZero2 = chiffres[0];
+    for (int valeur : chiffres) {
+        if (Math.abs(valeur) < Math.abs(procheZero2)) {
+            procheZero2 = valeur;
+        } else if (Math.abs(valeur) == Math.abs(procheZero2)) {
+            if (valeur > procheZero2) {
+                procheZero2 = valeur; // Priorité au positif
+            }
+        }
+    }
+%>
+<p>La valeur la plus proche de 0 (version 2) est : <%= procheZero2 %></p>
+
+<%
+    } // fin du if (chaine != null)
+%>
+
+<p><a href="index.html">Retour au sommaire</a></p>
+
 </body>
 </html>
