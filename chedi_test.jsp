@@ -55,7 +55,7 @@
             background-color: #2b2b3d;
         }
 
-       button {
+       .button {
     padding: 12px 28px;
     font-size: 18px;
     color: #00ffc3;
@@ -69,7 +69,7 @@
     transition: color 0.4s ease;
 }
 
-button::before {
+.button::before {
     content: "";
     position: absolute;
     top: 0;
@@ -81,11 +81,11 @@ button::before {
     transition: left 0.4s ease;
 }
 
-button:hover {
+.button:hover {
     color: #1e1e2f;
 }
 
-button:hover::before {
+.button:hover::before {
     left: 0;
 }
 }
