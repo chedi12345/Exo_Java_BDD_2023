@@ -137,7 +137,7 @@ button:hover::before {
 
     <form method="post">
         Entrez un mot ou nombre : <input type="text" name="text" />
-        <input type="submit" value="Afficher" />
+        <input type="submit" value="Afficher" class="button"/>
     </form>
 
 <%
