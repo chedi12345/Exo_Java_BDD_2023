@@ -1,69 +1,170 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+chedi
+chedi0212_84952
+En ligne
+
+Steve — 11:05 AM
+yo
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
+
+<!DOCTYPE html>
 <html>
 <head>
-    <title>ASCII Art - JSP Version</title>
+    <title>ASCII Art</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .ascii-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        pre {
+            font-family: monospace;
+            font-size: 16px;
+            margin: 0;
+        }
+        input[type="text"] {
+            font-size: 18px;
+            padding: 5px;
+            width: 300px;
+        }
+        button {
+            padding: 6px 12px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<h2>ASCII Art en Java JSP</h2>
+    <h1>ASCII Art Generator</h1>
 
-<form method="post">
-    <label>Largeur (L) : <input type="number" name="L" required></label><br>
-    <label>Hauteur (H) : <input type="number" name="H" required></label><br>
-    <label>Texte à convertir : <input type="text" name="T" required></label><br><br>
-    
-    <label>Alphabet ASCII (27 lettres par ligne, séparées par '|') :</label><br>
-    <textarea name="ascii" rows="10" cols="100" required></textarea><br><br>
+    <form method="post">
+        <label for="inputText">Entrez un mot :</label>
+        <input type="text" id="inputText" name="inputText" required />
+        <button type="submit">Afficher</button>
+    </form>
 
-    <input type="submit" value="Afficher ASCII Art">
-</form>
+    <div class="ascii-container">
+    <%
+        String inputText = request.getParameter("inputText");
+        if (inputText != null && !inputText.trim().isEmpty()) {
+            String textToPrint = inputText.toUpperCase();
 
-<%
-if ("POST".equalsIgnoreCase(request.getMethod())) {
-    try {
-        int L = Integer.parseInt(request.getParameter("L"));
-        int H = Integer.parseInt(request.getParameter("H"));
-        String T = request.getParameter("T").toUpperCase();
-        String asciiRaw = request.getParameter("ascii");
+            int L = 4;
+            int H = 5;
 
-        String[] rows = asciiRaw.split("\\|");
-        if (rows.length != H) {
-%>
-            <p style="color: red;">Erreur : vous devez fournir exactement <%= H %> lignes séparées par '|'.</p>
-<%
-        } else {
-%>
-            <h3>Résultat ASCII Art :</h3>
-            <pre style="font-family: monospace;">
-<%
-            for (int i = 0; i < H; i++) {
-                StringBuilder line = new StringBuilder();
-                for (char c : T.toCharArray()) {
-                    int index = c - 'A';
-                    if (index < 0 || index > 25) {
-                        index = 26; // utiliser '?' pour les caractères non alphabétiques
-                    }
+            String[] asciiAlphabet = {
+                " #  ##   ## ##  ### ###  ## # # ###  ## # # #   # # ###  #  ##   #  ##   ## ### # # # # # # # # # # ### ### ",
+                "# # # # #   # # #   #   #   # #  #    # # # #   ### # # # # # # # # # # #    #  # # # # # # # # # #   #   # ",
+                "### ##  #   # # ##  ##  # # ###  #    # ##  #   ### # # # # ##  # # ##   #   #  # # # # ###  #   #   #   ## ",
+                "# # # # #   # # #   #   # # # #  #  # # # # #   # # # # # # #    ## # #   #  #  # # # # ### # #  #  #       ",
+                "# # ##   ## ##  ### #    ## # # ###  #  # # ### # # # #  #  #     # # # ##   #  ###  #  # # # #  #  ###  #  "
+            };
+
+            for (int row = 0; row < H; row++) {
+                out.print("<pre>");
+                for (char ch : textToPrint.toCharArray()) {
+                    int index = (ch >= 'A' && ch <= 'Z') ? ch - 'A' : 26;
                     int start = index * L;
-                    int end = start + L;
-
-                    if (start >= 0 && end <= rows[i].length()) {
-                        line.append(rows[i].substring(start, end));
-                    } else {
-                        line.append(" ".repeat(L)); // en cas de mauvaise longueur
-                    }
+                    out.print(asciiAlphabet[row].substring(start, start + L));
                 }
-                out.println(line.toString());
+                out.println("</pre>");
             }
-%>
-            </pre>
-<%
         }
-    } catch (Exception e) {
-%>
-        <p style="color: red;">Erreur dans les données fournies : <%= e.getMessage() %></p>
-<%
-    }
-}
-%>
+    %>
+    </div>
+</body>
+</html>
+Réduire
+message.txt
+3 Ko
+﻿
+Steve
+steve081936
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ASCII Art</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .ascii-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        pre {
+            font-family: monospace;
+            font-size: 16px;
+            margin: 0;
+        }
+        input[type="text"] {
+            font-size: 18px;
+            padding: 5px;
+            width: 300px;
+        }
+        button {
+            padding: 6px 12px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>ASCII Art Generator</h1>
+
+    <form method="post">
+        <label for="inputText">Entrez un mot :</label>
+        <input type="text" id="inputText" name="inputText" required />
+        <button type="submit">Afficher</button>
+    </form>
+
+    <div class="ascii-container">
+    <%
+        String inputText = request.getParameter("inputText");
+        if (inputText != null && !inputText.trim().isEmpty()) {
+            String textToPrint = inputText.toUpperCase();
+
+            int L = 4;
+            int H = 5;
+
+            String[] asciiAlphabet = {
+                " #  ##   ## ##  ### ###  ## # # ###  ## # # #   # # ###  #  ##   #  ##   ## ### # # # # # # # # # # ### ### ",
+                "# # # # #   # # #   #   #   # #  #    # # # #   ### # # # # # # # # # # #    #  # # # # # # # # # #   #   # ",
+                "### ##  #   # # ##  ##  # # ###  #    # ##  #   ### # # # # ##  # # ##   #   #  # # # # ###  #   #   #   ## ",
+                "# # # # #   # # #   #   # # # #  #  # # # # #   # # # # # # #    ## # #   #  #  # # # # ### # #  #  #       ",
+                "# # ##   ## ##  ### #    ## # # ###  #  # # ### # # # #  #  #     # # # ##   #  ###  #  # # # #  #  ###  #  "
+            };
+
+            for (int row = 0; row < H; row++) {
+                out.print("<pre>");
+                for (char ch : textToPrint.toCharArray()) {
+                    int index = (ch >= 'A' && ch <= 'Z') ? ch - 'A' : 26;
+                    int start = index * L;
+                    out.print(asciiAlphabet[row].substring(start, start + L));
+                }
+                out.println("</pre>");
+            }
+        }
+    %>
+    </div>
 </body>
 </html>
