@@ -148,22 +148,27 @@
                 " ###   ###  ###  ###  ###  ###   ###   ###  ###   ###  ###   "
             };
 
-            for (int row = 0; row < H; row++) {
+      for (int row = 0; row < H; row++) {
                 out.print("<pre>");
                 for (char ch : textToPrint.toCharArray()) {
                     int index;
                     if (ch >= 'A' && ch <= 'Z') {
-                        index = ch - 'A';  // Index des lettres
+                        index = ch - 'A';  // Index des lettres (0-25)
                     } else if (ch >= '0' && ch <= '9') {
-                        index = 26 + (ch - '0');  // Index des chiffres
+                        index = 26 + (ch - '0');  // Index des chiffres (26-35)
                     } else {
-                        index = 36;  // Espaces et autres caractères
+                        index = -1;  // Caractère non reconnu
                     }
-                    int start = index * L;
-                    if (start + L <= asciiAlphabet[row].length()) {
-                        out.print(asciiAlphabet[row].substring(start, start + L));
+                    
+                    if (index >= 0 && index < 36) {  // 26 lettres + 10 chiffres
+                        int start = index * L;
+                        if (start + L <= asciiAlphabet[row].length()) {
+                            out.print(asciiAlphabet[row].substring(start, start + L));
+                        } else {
+                            out.print(" ".repeat(L));
+                        }
                     } else {
-                        out.print(" ".repeat(L));
+                        out.print(" ".repeat(L));  // Espaces pour caractères non reconnus
                     }
                 }
                 out.println("</pre>");
