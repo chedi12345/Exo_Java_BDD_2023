@@ -55,20 +55,40 @@
             background-color: #2b2b3d;
         }
 
-        button {
-            padding: 10px 20px;
-            background-color: #00ffc3;
-            color: #1e1e2f;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 2s;
-        }
+       button {
+    padding: 12px 28px;
+    font-size: 18px;
+    color: #00ffc3;
+    background-color: transparent;
+    border: 2px solid #00ffc3;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: color 0.4s ease;
+}
 
-        button:hover {
-            background-color: #00caa5;
-        }
+button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(120deg, #00ffc3, #1e1e2f, #00ffc3);
+    z-index: -1;
+    transition: left 0.4s ease;
+}
+
+button:hover {
+    color: #1e1e2f;
+}
+
+button:hover::before {
+    left: 0;
+}
+}
 
         .ascii-container {
             margin-top: 30px;
