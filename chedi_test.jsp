@@ -46,7 +46,7 @@
             padding: 8px;
             color: #00ffc3;
             width: 300px;
-            transition: 0.3s;
+            transition: 2s;
         }
 
         input[type="text"]:focus {
@@ -63,7 +63,7 @@
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 2s;
         }
 
         button:hover {
