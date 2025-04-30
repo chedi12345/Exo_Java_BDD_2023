@@ -131,18 +131,34 @@
             int L = 4;
             int H = 5;
 
+            // Ajouter les chiffres et les lettres
             String[] asciiAlphabet = {
+                // Lettres A-Z
                 " #  ##   ## ##  ### ###  ## # # ###  ## # # #   # # ###  #  ##   #  ##   ## ### # # # # # # # # # # ### ### ",
                 "# # # # #   # # #   #   #   # #  #    # # # #   ### # # # # # # # # # # #    #  # # # # # # # # # #   #   # ",
                 "### ##  #   # # ##  ##  # # ###  #    # ##  #   ### # # # # ##  # # ##   #   #  # # # # ###  #   #   #   ## ",
                 "# # # # #   # # #   #   # # # #  #  # # # # #   # # # # # # #    ## # #   #  #  # # # # ### # #  #  #       ",
-                "# # ##   ## ##  ### #    ## # # ###  #  # # ### # # # #  #  #     # # # ##   #  ###  #  # # # #  #  ###  #  "
+                "# # ##   ## ##  ### #    ## # # ###  #  # # ### # # # #  #  #     # # # ##   #  ###  #  # # # #  #  ###  #  ",
+                
+                // Chiffres 0-9
+                " ###  #   #  ###  #   #  ###  #   #  ###  #   #  ###  ###  ### ",
+                "#   # #   # #   # #   # #   # #   # #   # #   # #   #    #    #  ",
+                "#   # #   # #   # #   # ###  #   # ###  #   # #   #    #    #  ",
+                "#   # #   # #   # #   # #   # #   # #   # #   # #   #    #    #  ",
+                " ###   ###  ###  ###  ###  ###   ###   ###  ###   ###  ###   "
             };
 
             for (int row = 0; row < H; row++) {
                 out.print("<pre>");
                 for (char ch : textToPrint.toCharArray()) {
-                    int index = (ch >= 'A' && ch <= 'Z') ? ch - 'A' : 26;
+                    int index;
+                    if (ch >= 'A' && ch <= 'Z') {
+                        index = ch - 'A';  // Index des lettres
+                    } else if (ch >= '0' && ch <= '9') {
+                        index = 26 + (ch - '0');  // Index des chiffres
+                    } else {
+                        index = 36;  // Espaces et autres caractères
+                    }
                     int start = index * L;
                     if (start + L <= asciiAlphabet[row].length()) {
                         out.print(asciiAlphabet[row].substring(start, start + L));
@@ -157,4 +173,5 @@
     </div>
 </body>
 </html>
+
 
