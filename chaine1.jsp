@@ -33,6 +33,13 @@
         tableau.clear();
         message = "clear-success";
     }
+} else if ("afficher".equals(action)) {
+        message = "Contenu actuel du tableau : " + tableau.toString();
+    } else if ("vider".equals(action)) {
+        tableau.clear();
+        message = "Le tableau a été vidé.";
+    }
+
 %>
 <!DOCTYPE html>
 <html lang="fr">
