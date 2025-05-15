@@ -32,14 +32,9 @@
     } else if ("vider".equals(action)) {
         tableau.clear();
         message = "clear-success";
+    } else if ("afficher".equals(action)) {
+        message = "show";
     }
-} else if ("afficher".equals(action)) {
-        message = "Contenu actuel du tableau : " + tableau.toString();
-    } else if ("vider".equals(action)) {
-        tableau.clear();
-        message = "Le tableau a été vidé.";
-    }
-
 %>
 <!DOCTYPE html>
 <html lang="fr">
@@ -163,6 +158,7 @@
         <button type="submit" name="action" value="ajouter">Ajouter</button>
         <button type="submit" name="action" value="supprimer">Supprimer</button>
         <button type="submit" name="action" value="vider">Vider</button>
+        <button type="submit" name="action" value="afficher">Afficher</button>
     </form>
     <div class="message">
         <% switch(message) {
@@ -172,6 +168,7 @@
             case "remove-success": out.print("<span class='success'>Dernière valeur supprimée !</span>"); break;
             case "remove-empty":   out.print("<span class='error'>Le tableau est déjà vide !</span>"); break;
             case "clear-success":  out.print("<span class='success'>Le tableau a été vidé !</span>"); break;
+            case "show":           out.print("<span class='success'>Contenu du tableau affiché ci-dessous :</span>"); break;
             default: break;
         } %>
     </div>
